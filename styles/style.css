@@ -1,6 +1,7 @@
 html {
   font-size: 10px;
   font-family: 'MedievalSharp', cursive;
+  background-color: #00539F;
 }
 h1 {
   font-size: 60px;
@@ -10,14 +11,10 @@ h1 {
   color: #00539F;
   text-shadow: 3px 3px 1px black;
 }
-
 p, li {
   font-size: 24px;
   line-height: 2;
   letter-spacing: 1px;
-}
-html {
-  background-color: #00539F;
 }
 body {
   width: 600px;
