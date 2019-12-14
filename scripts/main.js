@@ -16,12 +16,13 @@ function setUserName() {
   localStorage.setItem('name', myName);
   myHeading.textContent = 'Welcome to the Test Page, ' + myName;
 }
-if(!localStorage.getItem('name')) {
-  setUserName();
-} else {
-  var storedName = localStorage.getItem('name');
-  myHeading.textContent = 'Welcome to the Test Page ' + storedName;
-}
+setUserName();
+//if(!localStorage.getItem('name')) {
+//  setUserName();
+//} else {
+//  var storedName = localStorage.getItem('name');
+//  myHeading.textContent = 'Welcome to the Test Page ' + storedName;
+//}
 myButton.onclick = function() {
   setUserName();
 }
