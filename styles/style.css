@@ -43,3 +43,15 @@ img {
   display: block;
   margin: 0 auto;
 }
+@media screen and (max-width: 600px){
+.column {
+  float: left;
+  width: 50%;
+}
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
