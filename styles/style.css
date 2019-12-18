@@ -23,14 +23,14 @@ p, li {
   letter-spacing: 1px;
 }
 html {
-  background-color: #00539F;
+  background-color: #74cbf2;
 }
 body {
   width: 1000px;
   margin: 0 auto;
-  background-color: #FF9500;
+  background-color: #00A0E9;
   padding: 0 20px 20px 20px;
-  border: 5px solid black;
+  border: 1px solid black;
 }
 h1 {
   margin: 0;
