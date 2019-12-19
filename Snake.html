@@ -4,18 +4,268 @@
    
     <link href="styles/style.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
-    <title>Bachle Resume Page</title>
-  </head>
-  <h1>Randal C. Bachle Online Resume</h1>
-<h2><center>7625 Charles Street, Omaha, Nebraska 68114 • (402) 980-7539 • rbachle@unomaha.edu</center></h2>
-  <h3><u>Professional Summary</u></h3>
-<h4>Organized and motivated Computer Scientist with three years experience working in Security
-Operations Center environments and four years experience in personnel management with expertise in
-training, adaptability, and coordination. Strengths in creativity, dependability, and diligence. Able to
-communicate effectively with a team and eager to develop more professional skills. References can be
-supplied upon request.</h4>
+    <title>Snake Game</title>
+    <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
+<body>
+
+    <div id="score">0</div>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <style>
+        #gameCanvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #score {
+            text-align: center;
+            font-size: 140px;
+            font-family: 'MedievalSharp';
+        }
+    </style>
+</body>
 
 
-<script src="scripts/main.js"></script>
-  </body>
+
+<script>
+    const GAME_SPEED = 100;
+    const CANVAS_BORDER_COLOUR = 'black';
+    const CANVAS_BACKGROUND_COLOUR = "#A5F3AC";
+    const SNAKE_COLOUR = '#008080';
+    const SNAKE_BORDER_COLOUR = 'darkblue';
+    const FOOD_COLOUR = 'red';
+    const FOOD_BORDER_COLOUR = 'darkred';
+    let snake = [
+        { x: 150, y: 150 },
+        { x: 140, y: 150 },
+        { x: 130, y: 150 },
+        { x: 120, y: 150 },
+        { x: 110, y: 150 }
+    ]
+    // user score
+    let score = 0;
+
+    // When set to true the snake is changing direction
+    let changingDirection = false;
+
+    // Food x coord
+    let foodX;
+    // Food y coord
+    let foodY;
+
+    // Horiz velocity
+    let dx = 10;
+
+    // Vert velocity
+    let dy = 0;
+
+    // Canvas
+    const gameCanvas = document.getElementById("gameCanvas");
+
+    // 2d drawing context
+    const ctx = gameCanvas.getContext("2d");
+
+    // Start
+    main();
+
+    // first food location
+    createFood();
+
+    // changeDirection whenever a key is pressed
+    document.addEventListener("keydown", changeDirection);
+
+    // constantly called as game progresses
+    function main() {
+
+        // If the game ended  to stop game
+        if (didGameEnd()) {
+            score = "Game Over";
+            document.getElementById('score').innerHTML = score;
+            return;
+        }
+        setTimeout(function onTick() {
+            changingDirection = false;
+            clearCanvas();
+            drawFood();
+            advanceSnake();
+            drawSnake();
+
+            // Call game again
+            main();
+        }, GAME_SPEED)
+    }
+
+    // #######################################################################################################
+
+    function clearCanvas() {
+
+
+        ctx.fillStyle = CANVAS_BACKGROUND_COLOUR;
+
+        ctx.strokestyle = CANVAS_BORDER_COLOUR;
+
+        ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+        ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
+    }
+
+    // #######################################################################################################
+
+    //Draw the food on the canvas
+
+    function drawFood() {
+        ctx.fillStyle = FOOD_COLOUR;
+        ctx.strokestyle = FOOD_BORDER_COLOUR;
+        ctx.fillRect(foodX, foodY, 10, 10);
+        ctx.strokeRect(foodX, foodY, 10, 10);
+    }
+
+
+    // #######################################################################################################
+    //Move snake
+    function advanceSnake() {
+
+        //  new Snake's head
+        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+        // Add  new head to the beginning of snake body
+        snake.unshift(head);
+        const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
+
+        if (didEatFood) {
+
+            // score increase
+            score += 10;
+
+            // score display
+            document.getElementById('score').innerHTML = score;
+
+            //new food location
+            createFood();
+        } else {
+            // Remove the last part of snake body
+            snake.pop();
+        }
+    }
+
+    // #######################################################################################################
+    /**
+     * Returns true if the head of the snake touched another part of the game
+     * or any of the walls
+     */
+    function didGameEnd() {
+        for (let i = 4; i < snake.length; i++) {
+            if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+        }
+        const hitLeftWall = snake[0].x < 0;
+        const hitRightWall = snake[0].x > gameCanvas.width - 10;
+        const hitToptWall = snake[0].y < 0;
+        const hitBottomWall = snake[0].y > gameCanvas.height - 10;
+        return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
+    }
+
+    // #######################################################################################################
+
+    //Random number
+    function randomTen(min, max) {
+        return Math.round((Math.random() * (max - min) + min) / 10) * 10;
+    }
+
+    // #######################################################################################################
+
+    //random food coords
+    function createFood() {
+
+        // x-coordinate
+        foodX = randomTen(0, gameCanvas.width - 10);
+
+        // y-coordinate
+        foodY = randomTen(0, gameCanvas.height - 10);
+
+        // if the new food location is where the snake currently is, generate a new food location
+        snake.forEach(function isFoodOnSnake(part) {
+            const foodIsoNsnake = part.x == foodX && part.y == foodY;
+            if (foodIsoNsnake) createFood();
+        });
+    }
+
+
+    // #######################################################################################################
+    /**
+     * Draws the snake on the canvas
+     */
+    function drawSnake() {
+        // loop through the snake parts drawing each part on the canvas
+        snake.forEach(drawSnakePart)
+    }
+
+
+    // #######################################################################################################
+
+    /**
+     * Draws a part of the snake on the canvas
+     */
+    function drawSnakePart(snakePart) {
+
+        // snake part color
+        ctx.fillStyle = SNAKE_COLOUR;
+
+        // Set the border
+        ctx.strokestyle = SNAKE_BORDER_COLOUR;
+
+
+        ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
+
+        // Draw a border around the snake part
+        ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+    }
+
+    // #######################################################################################################
+
+    /**
+     * Changes the vertical and horizontal velocity of the snake according to the
+     * key that was pressed.
+     * The direction cannot be switched to the opposite direction, to prevent the snake
+     * from reversing
+     */
+    function changeDirection(event) {
+        const LEFT_KEY = 37;
+        const RIGHT_KEY = 39;
+        const UP_KEY = 38;
+        const DOWN_KEY = 40;
+
+        /**
+         * Prevent the snake from reversing
+         */
+        if (changingDirection) return;
+        changingDirection = true;
+
+        const keyPressed = event.keyCode;
+        const goingUp = dy === -10;
+        const goingDown = dy === 10;
+        const goingRight = dx === 10;
+        const goingLeft = dx === -10;
+        if (keyPressed === LEFT_KEY && !goingRight) {
+            dx = -10;
+            dy = 0;
+        }
+
+        if (keyPressed === UP_KEY && !goingDown) {
+            dx = 0;
+            dy = -10;
+        }
+
+        if (keyPressed === RIGHT_KEY && !goingLeft) {
+            dx = 10;
+            dy = 0;
+        }
+
+        if (keyPressed === DOWN_KEY && !goingUp) {
+            dx = 0;
+            dy = 10;
+        }
+    }
+</script>
 </html>
