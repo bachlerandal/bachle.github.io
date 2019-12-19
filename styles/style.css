@@ -18,7 +18,13 @@ h3 {
 h4{
   font-size: 26px;
 }
-p, li {
+p{
+  font-size: 26px;
+  line-height: 2;
+  letter-spacing: 1px;
+}
+li {
+  text-align: center;
   font-size: 26px;
   line-height: 2;
   letter-spacing: 1px;
