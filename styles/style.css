@@ -46,8 +46,8 @@ img {
 }
 
 .column {
-  float: center;
-  width: 30%;
+  float: left;
+  width: 50%;
 }
 
 /* Clear floats after the columns */
