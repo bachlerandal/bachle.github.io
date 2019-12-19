@@ -3,6 +3,7 @@ html {
   font-family: 'Times New Roman';
 }
 h1 {
+  width: 100%
   font-size: 50px;
   text-align: center;
 }
