@@ -63,6 +63,7 @@ img {
 
 /* Clear floats after the columns */
 .row:after {
+  border-radius: 25px;
   content: "";
   display: table;
   clear: both;
