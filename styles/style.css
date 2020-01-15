@@ -1,40 +1,40 @@
 html {
   font-size: 26px;
   font-family: 'Times New Roman';
-  color: "white";
+  color: #ffffff;
   background: linear-gradient(110deg, #44709c 60%, #295078 60%);
 }
 h1 {
   width: 100%
   font-size: 50px;
-  color: "white";
+  color: #ffffff;
   text-align: center;
 }
 h2 {
   font-size: 30px;
   text-aling: center;
-  color: "white";
+  color: #ffffff;
 }
 h3 {
   font-size: 30px;
   text-align: center;
-  font color: "white";
+  font color: #ffffff;
 }
 h4{
   font-size: 26px;
-  color: "white";
+  color: #ffffff;
 }
 p{
   font-size: 26px;
   line-height: 2;
   letter-spacing: 1px;
-  color: "white";
+  color: #ffffff;
 }
 li {
   font-size: 26px;
   line-height: 2;
   letter-spacing: 1px;
-  color: "white";
+  color: #ffffff;
 }
 
 body {
@@ -48,7 +48,7 @@ h1 {
   margin: 0;
   padding: 26px 0;
   color: Black;
-  color: "white";
+  color: #ffffff;
   
 }
 img {
