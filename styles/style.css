@@ -1,6 +1,7 @@
 html {
   font-size: 26px;
   font-family: 'Times New Roman';
+  font color: "white";
 }
 h1 {
   width: 100%
@@ -29,7 +30,7 @@ li {
   letter-spacing: 1px;
 }
 html {
-  background-color: linear-gradient(#44709c, #295078);;
+  background-color: linear-gradient(#44709c, #295078);
 }
 body {
   height: auto;
