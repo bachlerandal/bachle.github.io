@@ -38,6 +38,7 @@ li {
 }
 
 body {
+  border-radius: 25px;
   height: auto;
   width: 80%;
   margin: 0 auto;
