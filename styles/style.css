@@ -29,7 +29,7 @@ li {
   letter-spacing: 1px;
 }
 html {
-  background-color: #024abf;
+  background-color: linear-gradient(#44709c, #295078);;
 }
 body {
   height: auto;
