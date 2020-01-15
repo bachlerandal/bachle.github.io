@@ -35,7 +35,7 @@ body {
   height: auto;
   width: 80%;
   margin: 0 auto;
-  background-color: #96bfff;
+  background-color: linear-gradient(#44709c, #295078);
   padding: 0 20px 20px 20px;
   border: 5px solid black;
 }
